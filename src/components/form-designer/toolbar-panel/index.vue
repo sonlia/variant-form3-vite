@@ -40,7 +40,7 @@
                  :fullscreen="(layoutType === 'H5') || (layoutType === 'Pad')">
         <div>
           <div class="form-render-wrapper" :class="[layoutType === 'H5' ? 'h5-layout' : (layoutType === 'Pad' ? 'pad-layout' : '')]">
-            <VFormRender ref="preForm" :form-json="formJson" :form-data="testFormData" :preview-state="true"
+            <VFormRender ref="preForm" :form-json="previewFormJson" :form-data="testFormData" :preview-state="true"
                          :option-data="testOptionData"  @myEmitTest="onMyEmitTest"
                          @appendButtonClick="testOnAppendButtonClick" @buttonClick="testOnButtonClick"
                          @formChange="handleFormChange">
@@ -82,7 +82,8 @@
   import loadBeautifier from "@/utils/beautifierLoader"
   import { saveAs } from 'file-saver'
   import axios from 'axios'
-  import SvgIcon from "@/components/svg-icon/index";
+  import SvgIcon from "@/components/svg-icon/index"
+  import { fillUnfilledWidgetPropsForPreview, unfilledWidgetPropsDefaultData } from "@/utils/widgets-preview"
 
   export default {
     name: "ToolbarPanel",
@@ -154,6 +155,12 @@
       }
     },
     computed: {
+      previewFormJson() {
+        return {
+          widgetList: fillUnfilledWidgetPropsForPreview(this.designer.widgetList, unfilledWidgetPropsDefaultData),
+          formConfig: deepClone(this.designer.formConfig)
+        }
+      },
       formJson() {
         return {
           // widgetList: this.designer.widgetList,
