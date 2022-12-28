@@ -5,7 +5,7 @@
              :class="[customClass, layoutType + '-layout']" :size="size" :validate-on-rule-change="false">
 
       <template v-if="designer.widgetList.length === 0">
-        <div class="no-widget-hint">{{i18nt('designer.noWidgetHint')}}</div>
+        <div class="no-widget-hint">从左边拖入</div>
       </template>
 
       <div class="form-widget-list">
