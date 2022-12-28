@@ -1,93 +1,10 @@
 <template>
   <el-container class="panel-container">
     <el-tabs v-model="activeTab" style="height: 100%; overflow: hidden">
-      <el-tab-pane :label="i18nt('designer.hint.widgetSetting')" name="1">
-        <el-scrollbar class="setting-scrollbar" :style="{height: scrollerHeight}">
 
-          <template v-if="!!designer.selectedWidget && !designer.selectedWidget.category">
-            <el-form :model="optionModel" size="small" label-position="left" label-width="120px" class="setting-form"
-                     @submit.prevent>
-              <el-collapse v-model="widgetActiveCollapseNames" class="setting-collapse">
-                <el-collapse-item name="1" v-if="showCollapse(commonProps)" :title="i18nt('designer.setting.commonSetting')">
-                  <template v-for="(editorName, propName) in commonProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-
-                <el-collapse-item name="2" v-if="showCollapse(advProps)" :title="i18nt('designer.setting.advancedSetting')">
-                  <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-
-                <el-collapse-item name="3" v-if="showEventCollapse() && showCollapse(eventProps)" :title="i18nt('designer.setting.eventSetting')">
-                  <template v-for="(editorName, propName) in eventProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-              </el-collapse>
-
-            </el-form>
-          </template>
-
-          <template v-if="(!!designer.selectedWidget && !!designer.selectedWidget.category)">
-            <el-form :model="optionModel" size="small" label-position="left" label-width="120px" class="setting-form"
-                     @submit.prevent>
-              <el-collapse v-model="widgetActiveCollapseNames" class="setting-collapse">
-                <el-collapse-item name="1" v-if="showCollapse(commonProps)" :title="i18nt('designer.setting.commonSetting')">
-                  <template v-for="(editorName, propName) in commonProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-
-                <el-collapse-item name="2" v-if="showCollapse(advProps)" :title="i18nt('designer.setting.advancedSetting')">
-                  <template v-for="(editorName, propName) in advProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-
-                <el-collapse-item name="3" v-if="showEventCollapse() && showCollapse(eventProps)" :title="i18nt('designer.setting.eventSetting')">
-                  <template v-for="(editorName, propName) in eventProps">
-                    <component v-if="hasPropEditor(propName, editorName)" :is="getPropEditor(propName, editorName)"
-                               :designer="designer" :selected-widget="selectedWidget" :option-model="optionModel"></component>
-                  </template>
-                </el-collapse-item>
-              </el-collapse>
-            </el-form>
-          </template>
-
-        </el-scrollbar>
-      </el-tab-pane>
-
-      <el-tab-pane v-if="!!designer" :label="i18nt('designer.hint.formSetting')" name="2">
-        <el-scrollbar class="setting-scrollbar" :style="{height: scrollerHeight}">
-          <form-setting :designer="designer" :form-config="formConfig"></form-setting>
-        </el-scrollbar>
-      </el-tab-pane>
     </el-tabs>
 
-    <div v-if="showWidgetEventDialogFlag" class="" v-drag="['.drag-dialog.el-dialog', '.drag-dialog .el-dialog__header']">
-      <el-dialog :title="i18nt('designer.setting.editWidgetEventHandler')" v-model="showWidgetEventDialogFlag"
-                 :show-close="true" class="drag-dialog small-padding-dialog" append-to-body
-                 :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
-        <el-alert type="info" :closable="false" :title="eventHeader"></el-alert>
-        <code-editor :mode="'javascript'" :readonly="false" v-model="eventHandlerCode" ref="ecEditor"></code-editor>
-        <el-alert type="info" :closable="false" title="}"></el-alert>
-        <template #footer>
-          <div class="dialog-footer">
-            <el-button @click="showWidgetEventDialogFlag = false">
-              {{i18nt('designer.hint.cancel')}}</el-button>
-            <el-button type="primary" @click="saveEventHandler">
-              {{i18nt('designer.hint.confirm')}}</el-button>
-          </div>
-        </template>
-      </el-dialog>
-    </div>
+
 
   </el-container>
 </template>

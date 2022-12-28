@@ -4,9 +4,7 @@
 
     <el-tabs v-model="firstTab" class="no-bottom-margin indent-left-margin">
       <el-tab-pane name="componentLib">
-        <template #label>
-          <span><svg-icon icon-class="el-set-up" /> {{i18nt('designer.componentLib')}}</span>
-        </template>
+
 
       <el-collapse v-model="activeNames" class="widget-collapse">
         <el-collapse-item name="1" :title="i18nt('designer.containerTitle')">
@@ -62,27 +60,7 @@
 
       </el-tab-pane>
 
-      <el-tab-pane v-if="showFormTemplates()" name="formLib" style="padding: 8px">
-        <template #label>
-          <span><svg-icon icon-class="el-form-template" /> {{i18nt('designer.formLib')}}</span>
-        </template>
-
-        <template v-for="(ft, idx) in formTemplates">
-          <el-card :bord-style="{ padding: '0' }" shadow="hover" class="ft-card">
-            <el-popover placement="right" trigger="hover">
-              <template #reference>
-                <img :src="ft.imgUrl" style="width: 200px">
-              </template>
-              <img :src="ft.imgUrl" style="height: 600px;width: 720px">
-            </el-popover>
-            <div class="bottom clear-fix">
-              <span class="ft-title">#{{idx+1}} {{ft.title}}</span>
-              <el-button link type="primary" class="right-button" @click="loadFormTemplate(ft.jsonUrl)">
-                {{i18nt('designer.hint.loadFormTemplate')}}</el-button>
-            </div>
-          </el-card>
-        </template>
-      </el-tab-pane>
+ 
 
     </el-tabs>
 
